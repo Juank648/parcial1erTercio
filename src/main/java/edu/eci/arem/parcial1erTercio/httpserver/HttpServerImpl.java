@@ -149,7 +149,8 @@ public class HttpServerImpl implements HttpServer{
             nanoSpark.check(endpoint);
             isSparkEndpoint = true;
         }
-        if (endpoint.equals("/consulta?lugar=")) {
+        if (endpoint.contains("/consulta?lugar=")) {
+            System.out.println(" es spark");
             nanoSpark.check(endpoint);
             isSparkEndpoint = true;
         }
