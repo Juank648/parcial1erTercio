@@ -1,6 +1,6 @@
 var weatherButton = document.getElementById("weatherButton");
 var respuesta = document.getElementById("temperature");
-var url = /consulta?lugar=" ;
+var url = "/consulta?lugar=" ;
 
 weatherButton.addEventListener('click', function (){
     respuesta.append('');
