@@ -1,13 +1,16 @@
-var weatherButton = document.getElementById("weather");
-
+var weatherButton = document.getElementById("weatherButton");
+var respuesta = document.getElementById("temperature");
 
 weatherButton.addEventListener('click', function (){
-    $("#temperature").empty();
-    var city = document.getElementById("city").value;
+    respuesta.append('');
+    var city = document.getElementById("name").value;
     axios.get(city).then(res => {
-        $("#temperature").append(res.data);
+        console.log(res.data);
+        respuesta.append(res.data);
     }).catch(ex => {
         alert(ex);
     });
 });
+
+
 
