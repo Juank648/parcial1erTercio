@@ -33,7 +33,7 @@ public class HttpServerImpl implements HttpServer{
         try {
             serverSocket = new ServerSocket(port);
             nanoSpark = new NanoSparkImpl(this);
-            nanoSpark.get("consulta?lugar=", this::getWeatherByCity);
+            nanoSpark.get("/consulta?lugar=", this::getWeatherByCity);
             nanoSpark.get("/clima", this::redirectToIndexPage);
         } catch (IOException e) {
             System.err.println("Could not listen on port: " + port + ".");
@@ -125,26 +125,27 @@ public class HttpServerImpl implements HttpServer{
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         nanoSpark.setOut(out);
         String inputLine;
+        //System.out.println(in.readLine());
         String endpoint;
         while ((inputLine = in.readLine()) != null) {
+            System.out.println("Entra while******");
+            //System.out.println(inputLine);
             if (inputLine.contains("GET")) {
+                System.out.println("Entra primer if");
                 endpoint = inputLine.split(" ")[1];
+                //System.out.println(endpoint);
                 if (!isSparkEndpoint(endpoint, nanoSpark)) getStaticFiles(endpoint);
             }
             if (!in.ready()) break;
         }
         in.close();
         clientSocket.close();
+        System.out.println("Socket cerrado");
     }
 
     private boolean isSparkEndpoint(String endpoint, NanoSpark nanoSpark) {
         boolean isSparkEndpoint = false;
-        if (endpoint.equals("/")) {
-            nanoSpark.check(endpoint);
-            isSparkEndpoint = true;
-        }
-        if (endpoint.contains("/Apps")) {
-            endpoint = endpoint.replace("/Apps", "");
+        if (endpoint.equals("/clima")) {
             nanoSpark.check(endpoint);
             isSparkEndpoint = true;
         }
@@ -158,7 +159,7 @@ public class HttpServerImpl implements HttpServer{
 
             weather = weatherService.getWeatherByName(req.queryParams("value"));
         } catch (NanoSparkException e) {
-            res.setError("There is no value to hello on the url, (i.e. /hello?value=example)");
+            res.setError("No existe valor para la ciudad ingresada");
         }
         return weather;
     }

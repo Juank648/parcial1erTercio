@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col" style="text-align: center">
+            <h2>Obten la Temperatura de tu ciudad</h2>
+        </div>
+    </div>
 
+    <div class="row" style="width: 70%;margin: auto;">
+        <div class="col">
+            <center>
+                <div class="form-group">
+                    <input id="city" type="text" class="form-control" />
+                    <input id="weather" type="submit" value="Obtener" class="btn btn-primary" >
+                    <p id="temperature"></p>
+                    <br>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>
 </body>
 </html>
